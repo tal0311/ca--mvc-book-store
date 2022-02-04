@@ -15,6 +15,6 @@ function getBooksForDisplay() {
   if (gSortBy !== 'bookName') {  
     gBooks.sort((a, b) => a[gSortBy] - b[gSortBy])  
     }    
-    gBooks.sort((a, b) => (a[gSortBy] < b[gSortBy] ? -1 : 1))
-  return gBooks
+    gBooks.sort((a, b) => (a[gSortBy] < b[gSortBy] ? -1 : 1))  
+  return gBooks  
 }
