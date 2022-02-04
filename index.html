@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>book-shop</title>
+
+    <link rel="stylesheet" href="css/shop.css" />
+  </head>
+  <body onload="initShop()">
+    <h1>Book-Shop</h1>
+    <div class="add-book-container">
+      <input type="text" placeholder="book title" name="book-name" />
+      <input type="number" placeholder="book price" value="book-price" />
+      <button class="btn add-btn" onclick="onAddBook(this)">add Book</button>
+    </div>
+    <table>
+      <thead>
+        <tr class="head-row">
+          <th class="unsort" onclick="onSortBy(this,'id')">Book id</th>
+          <th onclick="onSortBy(this, 'price')">Book price</th>
+          <th onclick="onSortBy(this, 'bookName')">Book name</th>
+          <th class="unsort">Actions</th>
+          <th onclick="onSortBy(this ,'rate')">rating</th>
+        </tr>
+      </thead>
+      <tbody class="main"></tbody>
+    </table>
+
+    <div class="modal-entire"></div>
+
+    <div class="update-book">
+      <h4>Update book price</h4>
+      <input type="number" name="price" />
+      <button onclick="onUpdateBook()">continue</button>
+    </div>
+
+    <script src="js/services/util.service.js"></script>
+    <script src="js/services/storage.service.js"></script>
+    <script src="js/services/shop.service.js"></script>
+    <script src="js/shop.controller.js"></script>
+  </body>
+</html>
