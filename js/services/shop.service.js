@@ -1,12 +1,91 @@
 'use strict'
 const STORAGE_KEY = 'booksDB'
+var gLang = 'en'
 var gSortBy = 'bookName'
 var gBooks
+
+var gTrans = {
+  bookId: {
+    en: 'book id',
+    he: 'מס"ד',
+  },
+  bookCover: {
+    en: 'book cover',
+    he: 'כריכה',
+  },
+  bookPrice: {
+    en: 'Price',
+    he: 'מחיר',
+  },
+  bookName: {
+    en: 'Book name',
+    he: 'שם הספר',
+  },
+  actions: {
+    en: 'Actions',
+    he: 'פעולות',
+  },
+  rate: {
+    en: 'Rating',
+    he: 'רייטינג',
+  },
+  read: {
+    en: 'Read',
+    he: 'קרא',
+  },
+  add: {
+    en: 'Add',
+    he: 'הוסף',
+  },
+  update: {
+    en: 'Update',
+    he: 'עדכן',
+  },
+  remove: {
+    en: 'Remove',
+    he: 'הסרה',
+  },
+  info: {
+    en: 'close summery',
+    he: 'סגור פרטים',
+  },
+  placeHolderPrice: {
+    en: 'book-price',
+    he: 'מחיר',
+  },
+  placeHolderName: {
+    en: 'book-name',
+    he: 'שם-ספר',
+  },
+  bookPriceModal: {
+    en: 'Update book price',
+    he: 'עדכן מחיר פריט',
+  },
+  continue: {
+    en: 'confirm price',
+    he: 'אשר מחיר',
+  },
+}
+
+function getTrans(transKey) {
+  var keyTrans = gTrans[transKey]
+  if (!keyTrans) return 'UNKNOWN'
+
+  var txt = keyTrans[gLang]
+  if (!txt) txt = keyTrans.en
+
+  return txt
+}
+
+function setLang(value) {
+  gLang = value
+  return gLang
+}
 
 //!always update storage here
 function getBooksForDisplay() {
   if (gSortBy !== 'bookName') {
-    gBooks.sort((a, b) => a[gSortBy] - b[gSortBy])
+    gBooks.sort((a, b) => a[gSortBy] - b[gSortBy]) //export this to function
   }
   gBooks.sort((a, b) => (a[gSortBy] < b[gSortBy] ? -1 : 1))
   return gBooks
@@ -22,9 +101,8 @@ function deleteBook(BookId) {
 
 function addBook(bookName, price, url) {
   //!done
-  gBooks.push(_createBook(bookName, price, url))
+  gBooks.unshift(_createBook(bookName, price, url))
   _saveBooksToStorage()
-  console.log(gBooks)
 }
 
 function updateBook(BookId, updatedPrice) {
@@ -73,6 +151,7 @@ function setRateChange(bookId, rate) {
   return book
 }
 
+//gSortDir= 'asc' || 'desc' change them inside sort
 function setBookSort(sort) {
   gSortBy = sort
   getBooksForDisplay()

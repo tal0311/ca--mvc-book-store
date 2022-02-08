@@ -5,35 +5,113 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>book-shop</title>
-
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="css/shop.css" />
   </head>
-  <body onload="initShop()">
-    <h1>Book-Shop</h1>
-    <div class="add-book-container">
-      <input type="text" placeholder="book title" name="book-name" />
-      <input type="number" placeholder="book price" value="book-price" />
-      <button class="btn add-btn" onclick="onAddBook(this)">add Book</button>
+  <body class="bg-dark" onload="initShop()">
+    <h1 class="fs-1 pt-4 mb-5 text-decoration-underline">Book-Shop</h1>
+
+    <!-- lang container -->
+    <div class="lang-container text-secondary">
+      <span class="fs-2 pt-4 mb-5">change language</span>
+      <select
+        class="bg-dark text-light"
+        name="lang"
+        onchange="onChangeLang(this.value)"
+      >
+        <option class="langOpt" value="en">En</option>
+        <option class="langOpt" value="he">עברית</option>
+      </select>
     </div>
-    <table>
-      <thead>
-        <tr class="head-row">
-          <th class="unsort" onclick="onSortBy(this,'id')">Book id</th>
-          <th onclick="onSortBy(this, 'price')">Book price</th>
-          <th onclick="onSortBy(this, 'bookName')">Book name</th>
-          <th class="unsort">Actions</th>
-          <th onclick="onSortBy(this ,'rate')">rating</th>
+
+    <!-- add book container -->
+    <div class="fs-2 pt-4 m-2 add-book-container my-4 d-flex">
+      <input
+        class="m-4 form-control bg-dark text-light"
+        data-trans="placeHolderName"
+        type="text"
+        placeholder="book title"
+        name="book-name"
+      />
+      <input
+        class="m-4 form-control bg-dark text-light"
+        data-trans="placeHolderPrice"
+        type="number"
+        placeholder="book price"
+        value="book-price"
+      />
+      <button
+        style="max-height: 4rem"
+        data-trans="add"
+        class="btn m-4 btn-secondary"
+        onclick="onAddBook(this)"
+      >
+        Add Book
+      </button>
+    </div>
+
+    <!-- book table head -->
+    <table class="table bg-dark container text-light">
+      <thead class="text-secondary">
+        <tr class="head-row fs-3">
+          <th
+            data-trans="bookId"
+            class="unsort text-secondary"
+            onclick="onSortBy(this,'id')"
+          >
+            Book id
+          </th>
+          <th data-trans="bookCover" class="unsort text-secondary">
+            Book cover
+          </th>
+          <th
+            data-trans="bookPrice"
+            class="text-secondary"
+            onclick="onSortBy(this, 'price')"
+          >
+            Book price
+          </th>
+          <th
+            data-trans="bookName"
+            class="text-secondary"
+            onclick="onSortBy(this, 'bookName')"
+          >
+            Book name
+          </th>
+          <th data-trans="actions" class="text-secondary unsort">Actions</th>
+          <th
+            data-trans="rate"
+            class="text-secondary"
+            onclick="onSortBy(this ,'rate')"
+          >
+            rating
+          </th>
         </tr>
       </thead>
       <tbody class="main"></tbody>
     </table>
 
+    <!-- book table body -->
     <div class="modal-entire"></div>
 
-    <div class="update-book">
-      <h4>Update book price</h4>
-      <input type="number" name="price" />
-      <button onclick="onUpdateBook()">continue</button>
+    <!-- update price -->
+    <div class="container update-book d-flex">
+      <h4 data-trans="bookPriceModal" class="bg-dark mt-5 mb-3">
+        Update book price
+      </h4>
+      <input class="mb-3" type="number" name="price" />
+      <button
+        data-trans="continue"
+        class="btn btn-light"
+        onclick="onUpdateBook()"
+      >
+        Confirm price
+      </button>
     </div>
 
     <script src="js/services/util.service.js"></script>

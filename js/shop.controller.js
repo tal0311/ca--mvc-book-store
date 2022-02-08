@@ -10,18 +10,21 @@ function renderBooks() {
   const books = getBooksForDisplay()
 
   var strHTMLs = books.map(
-    //todo: add buttons for rating
+    //better add the change rating inside the buttons td
     (book) => `
-   <tr>
+   <tr class="fs-5 text">
           <td name="bookId">${book.id}</td>
+          <td >
+          <img src="${book.imgUrl}"/>
+          </td>
           <td>${book.price}</td>
           <td>${book.bookName}</td>
           <td class="actions-container">
-            <button class="btn read-btn" onclick="onReadBook('${book.id}')">read</button>
-            <button class="btn update-btn" onclick="onOpenUpdateModal('${book.id}')">
+            <button data-trans="read" class="btn btn-outline-primary read-btn" onclick="onReadBook('${book.id}')">read</button>
+            <button data-trans="update" class="my-2 btn btn-outline-warning update-btn" onclick="onOpenUpdateModal('${book.id}')">
               update
             </button>
-            <button class="btn delete-btn" onclick="onDeleteBook('${book.id}')">
+            <button data-trans="remove" class="btn btn-outline-danger delete-btn" onclick="onDeleteBook('${book.id}')">
               delete
             </button>
           </td>
@@ -37,8 +40,8 @@ function renderBooks() {
 function renderBookModal(book) {
   const strHTML = `
 
-    <article class="book-modal">
-      <button onclick="onCloseModal()">close Summery</button>
+    <article class=" card book-modal">
+      <button data-trans="info" onclick="onCloseModal()">close Summery</button>
       <div>
         <h4>${book.bookName}</h4>
         <div class="img-container">
@@ -49,8 +52,8 @@ function renderBookModal(book) {
          <div class="rating-container">
            <button class="rate-btn plus"  onclick="onRateChange('${
              book.id
-           }' , 1)">+</button> <span>${book.rate}</span>
-            <button class="rate-btn minus" onclick="onRateChange('${
+           }' , 1)">+</button> <span class="fs-3 by-dark">${book.rate}</span>
+            <button class="btn rate-btn minus" onclick="onRateChange('${
               book.id
             }', -1)">-</button>
          </div>
@@ -65,7 +68,31 @@ function renderBookModal(book) {
   document.querySelector('.modal-entire').innerHTML = strHTML
 }
 
-//!always rerender here
+function onChangeLang(value) {
+  var lang = setLang(value)
+  changePageDirection(lang)
+  doTrans()
+}
+
+function changePageDirection(lang) {
+  console.log(lang)
+  if (lang === 'he') document.body.classList.add('rtl')
+  else document.body.classList.remove('rtl')
+}
+
+function doTrans() {
+  var itemsToTrans = document.querySelectorAll('[data-trans]')
+  itemsToTrans.forEach((item) => {
+    var key = item.dataset.trans
+
+    var txt = getTrans(key)
+
+    item.innerText = txt
+    item.placeholder = txt
+  })
+}
+
+//!always rerender here if you can not render here its not spouse to be here
 function onDeleteBook(BookId) {
   deleteBook(BookId)
   renderBooks()
@@ -82,6 +109,8 @@ function onAddBook() {
       document.querySelector('h1').innerText = 'Book-Shop'
     }, 3000)
 
+    bookName.innerText = ''
+    price.innerText = ''
     return
   }
 
@@ -97,7 +126,7 @@ function onUpdateBook() {
     '.update-book input[name="price"]'
   ).value
 
-  if (updatedPrice) {
+  if (updatedPrice && updatedPrice > 0) {
     updateBook(gCurrBook, updatedPrice)
     renderBooks()
     hideUpdateModal()
@@ -128,8 +157,8 @@ function onReadBook(BookId) {
   renderBookModal(book)
   var elTable = document.querySelector('table')
   elTable.style.opacity = '0.5'
-  var elAddBtn = document.querySelector('.add-btn')
-  elAddBtn.style.opacity = '0.5'
+  // var elAddBtn = document.querySelector('.add-btn')
+  // elAddBtn.style.opacity = '0.5'
   var elModal = document.querySelector('.modal-entire')
   elModal.classList.add('slide-right')
 }
@@ -146,8 +175,8 @@ function onSortBy(el, sortBy) {
 function onCloseModal() {
   var elTable = document.querySelector('table')
   elTable.style.opacity = '1'
-  var elAddBtn = document.querySelector('.add-btn')
-  elAddBtn.style.opacity = '1'
+  // var elAddBtn = document.querySelector('.add-btn')
+  // elAddBtn.style.opacity = '1'
   var elModal = document.querySelector('.modal-entire')
   elModal.classList.remove('slide-right')
 }
@@ -159,3 +188,17 @@ function onRateChange(BookId, rate) {
   elRating.innerText = rating
   renderBooks()
 }
+
+// function setCurrency(num) {
+//   if (gLang === 'he') {
+//     return new Intl.NumberFormat('he-IL', {
+//       style: 'currency',
+//       currency: 'ILS',
+//     }).format(num)
+//   } else {
+//     return new Intl.NumberFormat('en-IN', {
+//       style: 'currency',
+//       currency: 'usd',
+//     }).format(num)
+//   }
+// }

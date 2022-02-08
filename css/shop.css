@@ -1,7 +1,5 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #333;
-  font-size: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,21 +7,60 @@ body {
   text-align: center;
 }
 
+body.rtl {
+  direction: rtl;
+}
+body.rtl .btn {
+  font-size: large;
+}
+
 h1 {
   color: #888;
 }
 
-.add-btn {
+/* .lang-container {
+  width: 100%;
+  color: #888;
+  text-transform: capitalize;
+  margin-bottom: 3rem;
+} */
+.lang-container select {
+  font: 2rem;
+  height: 2rem;
+  width: 4rem;
+}
+.lang-container > select {
+  background-color: #333;
+  color: #fff;
+  border: 2px solid white;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-inline-start: 3rem;
+  width: 7rem;
+}
+
+select:focus {
+  outline: none;
+  background-color: #888;
+}
+
+.langOpt {
+  font-size: 1.2rem;
+}
+
+/* .add-btn {
   cursor: pointer;
   align-self: flex-start;
   margin-bottom: 5vh;
-}
-.head-row th {
+} */
+/* .head-row th {
   padding: 10px;
   color: #222;
-  height: 30px;
+  max-width: 20%;
+
   font-size: larger;
-}
+  font-size: 1.8rem;
+} */
 
 th:hover:not(.unsort) {
   border-radius: 10px;
@@ -35,46 +72,65 @@ th:hover:not(.unsort) {
   border-radius: 10px;
   background-color: rgba(49, 83, 83, 0.66);
 }
-table {
+/* table {
   border-radius: 10px;
   background-color: rgba(95, 158, 160, 0.66);
-  width: 75vw;
+  width: 80vw;
   padding-bottom: 10px;
-}
-
+} */
+/* 
 tbody tr td {
   color: rgba(255, 255, 255, 0.74);
   font-size: 1.5rem;
-}
+  height: 3rem;
+} */
 
-.btn {
+/* td {
+  min-height: 3rem;
+} */
+
+/* .btn {
   cursor: pointer;
   text-transform: capitalize;
   height: 2rem;
   width: 6rem;
   border: none;
   border-radius: 3px;
-}
+} */
 
-.actions-container {
+/* .btn:hover {
+  transition: 0.2s ease;
+  transform: translateY(-5%);
+} */
+
+/* .actions-container {
+  margin-top: 8%;
   display: flex;
   justify-content: space-around;
-}
+} */
+/* 
 .read-btn {
+  height: 100%;
   color: #fff;
   background-color: rgb(68, 68, 223);
 }
 .update-btn {
+  height: 100%;
   background-color: rgba(203, 171, 26, 0.842);
 }
 .delete-btn {
+  height: 100%;
   background-color: rgba(221, 57, 16, 0.87);
+} */
+
+.form-control {
+  height: 3rem;
 }
 
 .modal-entire {
   background-color: #999;
   position: relative;
-  bottom: 20rem;
+  bottom: 60vh;
   display: none;
 }
 .modal-entire.slide-right {
@@ -103,8 +159,16 @@ tbody tr td {
   color: rgb(189, 37, 37);
 }
 
+.book-modal .btn:focus {
+  outline: none;
+}
+
 .slide-right {
   animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+td img {
+  width: 30%;
 }
 
 @keyframes slide-right {
@@ -220,6 +284,6 @@ button {
   }
   100% {
     opacity: 1;
-    transform: translateY(-100px);
+    transform: translateY(-200%);
   }
 }
